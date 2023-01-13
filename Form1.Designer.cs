@@ -42,6 +42,8 @@
             this.generalCustomLink = new System.Windows.Forms.LinkLabel();
             this.GeneralCoordinates = new System.Windows.Forms.Label();
             this.GeneralCoordinatesValue = new System.Windows.Forms.Label();
+            this.generalCrossHairImg = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.generalCrossHairImg)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -87,9 +89,9 @@
             this.GeneralCoordinates.Name = "GeneralCoordinates";
             this.GeneralCoordinates.Size = new System.Drawing.Size(114, 15);
             this.GeneralCoordinates.TabIndex = 3;
-            this.GeneralCoordinates.Text = "GeneralCoordinates:";        
+            this.GeneralCoordinates.Text = "GeneralCoordinates:";
             // 
-            // label3
+            // GeneralCoordinatesValue
             // 
             this.GeneralCoordinatesValue.AutoSize = true;
             this.GeneralCoordinatesValue.Location = new System.Drawing.Point(12, 148);
@@ -97,11 +99,22 @@
             this.GeneralCoordinatesValue.Size = new System.Drawing.Size(0, 15);
             this.GeneralCoordinatesValue.TabIndex = 4;
             // 
+            // generalCrossHairImg
+            // 
+            this.generalCrossHairImg.BackColor = System.Drawing.Color.Chartreuse;
+            this.generalCrossHairImg.Image = global::Ut3CustomCrosshairs.Properties.Resources.ut3_crosshairs;
+            this.generalCrossHairImg.Location = new System.Drawing.Point(12, 151);
+            this.generalCrossHairImg.Name = "generalCrossHairImg";
+            this.generalCrossHairImg.Size = new System.Drawing.Size(71, 62);            
+            this.generalCrossHairImg.TabIndex = 5;
+            this.generalCrossHairImg.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 562);
+            this.Controls.Add(this.generalCrossHairImg);
             this.Controls.Add(this.GeneralCoordinatesValue);
             this.Controls.Add(this.GeneralCoordinates);
             this.Controls.Add(this.generalCustomLink);
@@ -110,6 +123,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.generalCrossHairImg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,5 +135,6 @@
         private LinkLabel generalCustomLink;
         private Label GeneralCoordinates;
         private Label GeneralCoordinatesValue;
+        private PictureBox generalCrossHairImg;
     }
 }
