@@ -68,6 +68,7 @@ public class IniParser
 
                 strLine = iniFile.ReadLine();
             }
+            iniFile.Close();
         }
         else
             throw new FileNotFoundException("Unable to locate " + iniPath);
@@ -121,16 +122,7 @@ public class IniParser
 
         keyPairs.Add(sectionPair, settingValue);
     }
-
-    /// <summary>
-    /// Adds or replaces a setting to the table to be saved with a null value.
-    /// </summary>
-    /// <param name="sectionName">Section to add under.</param>
-    /// <param name="settingName">Key name to add.</param>
-    public void AddSetting(String sectionName, String settingName)
-    {
-        AddSetting(sectionName, settingName, null);
-    }
+   
 
     /// <summary>
     /// Remove a setting.
@@ -146,7 +138,7 @@ public class IniParser
         if (keyPairs.ContainsKey(sectionPair))
             keyPairs.Remove(sectionPair);
     }
-
+   
     /// <summary>
     /// Save settings to new file.
     /// </summary>
