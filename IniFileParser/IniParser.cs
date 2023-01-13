@@ -81,8 +81,8 @@ public class IniParser
     public String GetSetting(String sectionName, String settingName)
     {
         SectionPair sectionPair;
-        sectionPair.Section = sectionName.ToUpper();
-        sectionPair.Key = settingName.ToUpper();
+        sectionPair.Section = sectionName;
+        sectionPair.Key = settingName;
 
         return (String)keyPairs[sectionPair];
     }
@@ -97,7 +97,7 @@ public class IniParser
 
         foreach (SectionPair pair in keyPairs.Keys)
         {
-            if (pair.Section == sectionName.ToUpper())
+            if (pair.Section == sectionName)
                 tmpArray.Add(pair.Key);
         }
 
@@ -113,8 +113,8 @@ public class IniParser
     public void AddSetting(String sectionName, String settingName, String settingValue)
     {
         SectionPair sectionPair;
-        sectionPair.Section = sectionName.ToUpper();
-        sectionPair.Key = settingName.ToUpper();
+        sectionPair.Section = sectionName;
+        sectionPair.Key = settingName;
 
         if (keyPairs.ContainsKey(sectionPair))
             keyPairs.Remove(sectionPair);
@@ -140,8 +140,8 @@ public class IniParser
     public void DeleteSetting(String sectionName, String settingName)
     {
         SectionPair sectionPair;
-        sectionPair.Section = sectionName.ToUpper();
-        sectionPair.Key = settingName.ToUpper();
+        sectionPair.Section = sectionName;
+        sectionPair.Key = settingName;
 
         if (keyPairs.ContainsKey(sectionPair))
             keyPairs.Remove(sectionPair);

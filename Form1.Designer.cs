@@ -39,6 +39,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.selectFileButton = new System.Windows.Forms.Button();
+            this.generalCustomLink = new System.Windows.Forms.LinkLabel();
+            this.GeneralCoordinates = new System.Windows.Forms.Label();
+            this.GeneralCoordinatesValue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -66,21 +69,57 @@
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_click);
             // 
+            // generalCustomLink
+            // 
+            this.generalCustomLink.AutoSize = true;
+            this.generalCustomLink.Location = new System.Drawing.Point(12, 118);
+            this.generalCustomLink.Name = "generalCustomLink";
+            this.generalCustomLink.Size = new System.Drawing.Size(110, 15);
+            this.generalCustomLink.TabIndex = 2;
+            this.generalCustomLink.TabStop = true;
+            this.generalCustomLink.Text = "generalCustomLink";
+            this.generalCustomLink.Click += new System.EventHandler(this.generalCustomLink_click);
+            // 
+            // GeneralCoordinates
+            // 
+            this.GeneralCoordinates.AutoSize = true;
+            this.GeneralCoordinates.Location = new System.Drawing.Point(12, 133);
+            this.GeneralCoordinates.Name = "GeneralCoordinates";
+            this.GeneralCoordinates.Size = new System.Drawing.Size(114, 15);
+            this.GeneralCoordinates.TabIndex = 3;
+            this.GeneralCoordinates.Text = "GeneralCoordinates:";        
+            // 
+            // label3
+            // 
+            this.GeneralCoordinatesValue.AutoSize = true;
+            this.GeneralCoordinatesValue.Location = new System.Drawing.Point(12, 148);
+            this.GeneralCoordinatesValue.Name = "GeneralCoordinatesValue";
+            this.GeneralCoordinatesValue.Size = new System.Drawing.Size(0, 15);
+            this.GeneralCoordinatesValue.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 562);
+            this.Controls.Add(this.GeneralCoordinatesValue);
+            this.Controls.Add(this.GeneralCoordinates);
+            this.Controls.Add(this.generalCustomLink);
             this.Controls.Add(this.selectFileButton);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "Form1";          
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+      
 
         #endregion
-     
+
+        private LinkLabel generalCustomLink;
+        private Label GeneralCoordinates;
+        private Label GeneralCoordinatesValue;
     }
 }
