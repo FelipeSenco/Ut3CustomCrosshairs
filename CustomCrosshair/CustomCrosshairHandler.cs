@@ -26,8 +26,12 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
             };            
         }  
         
-        public Color ConvertToColor(string color)
+        public Color? ConvertToColor(string? color)
         {            
+            if (color == null)
+            {
+                return null;
+            }
             string numberString = "";
             bool wasAddingNumbers = false;
             foreach(char c in color)

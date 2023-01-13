@@ -1047,7 +1047,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox8.Size = new System.Drawing.Size(65, 68);
             this.pictureBox8.TabIndex = 0;
             this.pictureBox8.TabStop = false;
-            this.pictureBox8.UseWaitCursor = true;                  
+            this.pictureBox8.UseWaitCursor = true;                
             // 
             // Form1
             // 

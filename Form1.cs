@@ -3,6 +3,7 @@ using System;
 using Ut3CustomCrosshairs.CustomCrosshair;
 using Ut3CustomCrosshairs.Properties;
 
+#nullable enable
 namespace Ut3CustomCrosshairs
 {    
     public partial class Form1 : Form
@@ -48,7 +49,8 @@ namespace Ut3CustomCrosshairs
                 Show_App_Boxes();
                 //REMEMBER THE TARGETaDHESIONMAXDISTANCE IS DUPLICATED ON UTWEAPON.INI SO THAT IS NOT COPIED TWICE ON THE NEW FILE               
                 crosshairHandler = new CustomCrosshairHandler(weaponIni);   
-                weaponStore = new WeaponStore(crosshairHandler);                
+                weaponStore = new WeaponStore(crosshairHandler);
+                Load_Weapon_Settings(WeaponIndex.General.ToString(), this.weaponStore.generalSettings, "General Settings");
             }
         }
 
@@ -74,7 +76,10 @@ namespace Ut3CustomCrosshairs
         {
             this.selectedWeaponSettings = weaponSettings;
             update_weapon_image(weaponSection);
-            update_color((Color)this.selectedWeaponSettings.Color);
+            if (this.selectedWeaponSettings.Color is not null)
+                update_color((Color)this.selectedWeaponSettings.Color);
+            else
+                reset_color();
             this.weaponLabel.Text = weaponName;
             this.weaponCoordinates.Text = this.selectedWeaponSettings.CustomCrosshairCoordinates;  
             
@@ -210,6 +215,9 @@ namespace Ut3CustomCrosshairs
                 case WeaponIndex.InstagibRifle:
                     this.weaponImgBox.Image = global::Ut3CustomCrosshairs.Properties.Resources.ShockRifle;
                     break;
+                case WeaponIndex.Avril:
+                    this.weaponImgBox.Image = global::Ut3CustomCrosshairs.Properties.Resources.Avril;
+                    break;
                 default:
                     this.weaponImgBox.Image = null;
                     break;
@@ -217,19 +225,16 @@ namespace Ut3CustomCrosshairs
         }
 
         private void update_color(Color color)
-        {
-            if (color != null)
-            {
+        {                                    
                 this.ColorLabel.BackColor = (Color)color;
-                this.selectedWeaponSettings.CrosshairColor = $"(R={color.R},G={color.G},B={color.B},A={color.A})"; ;
-            } 
-            else
-            {
-                this.ColorLabel.BackColor = Color.FromArgb(255,255,255,255);
-                this.selectedWeaponSettings.CrosshairColor = null;
-            }
-            
+                this.selectedWeaponSettings.CrosshairColor = $"(R={color.R},G={color.G},B={color.B},A={color.A})";            
         }
+        private void reset_color()
+        {
+            this.ColorLabel.BackColor = Color.FromArgb(255, 255, 255, 255);
+            this.selectedWeaponSettings.CrosshairColor = null;
+        }
+
         private void color_button_click(object sender, EventArgs e)
         {
             this.colorDialog.ShowDialog();
