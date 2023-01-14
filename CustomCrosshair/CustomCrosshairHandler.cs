@@ -181,6 +181,8 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
 
         public void SaveFile()
         {
+            //Add bUseCustomCoordinates as true, to enable custom crosshairs
+            weaponIniFile.AddSetting(WeaponIndex.General, "bUseCustomCoordinates", "true");
             weaponIniFile.SaveSettings();
         }
 

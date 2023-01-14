@@ -51,7 +51,7 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
         public static string F2 = "(U=52,V=326,UL=14,VL=14)";
         public static string F3 = "(U=69,V=312,UL=64,VL=64)";
         public static string F4 = "(U=320,V=320,UL=58,VL=56)";
-        public static string F5 = "(U=380,V=320,UL=26,VL=24)";
+        public static string F5 = "(U=380,V=320,UL=26,VL=26)";
         public static string F6 = "(U=406,V=322,UL=74,VL=74)";    
         public static string G1 = "U=0,V=382,UL=64,VL=64)";
         public static string G2 = "(U=64,V=382,UL=64,VL=64)";

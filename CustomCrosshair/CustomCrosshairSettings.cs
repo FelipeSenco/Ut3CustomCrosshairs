@@ -10,7 +10,6 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
     {
         public string? CustomCrosshairCoordinates { get; set; }
         public string? CrosshairColor { get; set; }
-        public string? bUseCustomCoordinates { get; set; }
         public Color? Color { get; set; }
         public bool UseGeneralCoordinates { get; set; }
         public bool UseGeneralColor{ get; set; }
