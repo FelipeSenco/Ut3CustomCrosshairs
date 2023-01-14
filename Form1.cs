@@ -80,6 +80,7 @@ namespace Ut3CustomCrosshairs
 
         private void Load_Weapon_Settings(string weaponSection, string weaponName)
         {
+            this.selectedWeaponName = weaponName;            
             var temp = crosshairHandler.GetStoreWeapon(weaponSection);
             this.selectedWeaponSettings = new CustomCrosshairSettings()
             {
@@ -89,9 +90,17 @@ namespace Ut3CustomCrosshairs
                 Color = temp.Color,
                 UseGeneralColor = temp.UseGeneralColor,
                 UseGeneralCoordinates = temp.UseGeneralCoordinates,
+                UseSuggestions = temp.UseSuggestions,
+                SuggestionImage = temp.SuggestionImage,
             };
-            this.selectedWeaponName = weaponName;
-            update_weapon_image(weaponSection);
+            Update_UI();
+        }
+
+        private void Update_UI()
+        {
+            this.coordsCheckBox.Text = "Use General Settings coordinates";
+            this.colorCheckBox.Text = "Use General Settings color";
+            update_weapon_image(this.selectedWeaponSettings.WeaponSection);
             if (this.selectedWeaponSettings.Color is not null)
             {
                 update_color();
@@ -99,16 +108,29 @@ namespace Ut3CustomCrosshairs
             }
             else
                 reset_color();
+            this.weaponLabel.Text = this.selectedWeaponName;
             this.opacityBar.Value = 255;
-            this.weaponLabel.Text = weaponName;
+            this.weaponCoordinates.Enabled = !this.selectedWeaponSettings.UseSuggestions;
             this.weaponCoordinates.Text = this.selectedWeaponSettings.CustomCrosshairCoordinates;
             this.coordsCheckBox.Checked = this.selectedWeaponSettings.UseGeneralCoordinates;
             this.colorCheckBox.Checked = this.selectedWeaponSettings.UseGeneralColor;
             this.colorBox.Enabled = !this.selectedWeaponSettings.UseGeneralColor;
             this.coordinateBox.Enabled = !this.selectedWeaponSettings.UseGeneralCoordinates;
             this.suggestionCheckBox.Checked = this.selectedWeaponSettings.UseSuggestions;
-            this.groupBox3.Enabled = this.suggestionCheckBox.Checked;
+            this.groupBox3.Visible = this.suggestionCheckBox.Checked;
+            this.selectedSuggestionBox.Visible = this.selectedWeaponSettings.UseSuggestions;
             this.selectedSuggestionBox.Image = this.selectedWeaponSettings.SuggestionImage;
+
+            //hide coords and color checkboxes for general settings
+            if(this.selectedWeaponSettings.WeaponSection == WeaponIndex.General.ToString())
+            {
+                this.coordsCheckBox.Text = "Don't specify general coordinates (weapons without coordinate values won't have a fallback)";
+                this.colorCheckBox.Text = "Don't specify general color (weapons without color value won't have a fallback)";
+            }
+
+            //set general for all buttons visibility
+            var generalSettings = crosshairHandler.GetWeaponSettings(WeaponIndex.General);
+            update_set_all_buttons(generalSettings);
         }
                
         private void update_weapon_image(string weaponSection)
@@ -220,6 +242,15 @@ namespace Ut3CustomCrosshairs
             this.ColorLabel.BackColor = Color.FromArgb(255, 255, 255, 255);
             this.ColorLabel.Text = "Color value not set";
         }
+        private void Reload_Weapon_UI()
+        {
+            Load_Weapon_Settings(this.selectedWeaponSettings.WeaponSection, this.selectedWeaponName);
+        }
+        private void update_set_all_buttons(CustomCrosshairSettings generalSettings)
+        {            
+            this.SetGeneralColorForAllButton.Visible = !generalSettings.UseGeneralColor;
+            this.SetGeneralCoordsForAllButton.Visible = !generalSettings.UseGeneralCoordinates;
+        }
 
         #region handlers
         private void color_button_click(object sender, EventArgs e)
@@ -249,9 +280,30 @@ namespace Ut3CustomCrosshairs
                 update_color();
             }
         }
+        private void SetGeneralCoordsForAllButton_click(object sender, EventArgs e)
+        {
+            crosshairHandler.SetGeneralCoordinatesForAll();
+            Reload_Weapon_UI();
+            MessageBox.Show("Succesfully updated your weapon options");
+        }
 
+        private void SetGeneralColorForAllButton_click(object sender, EventArgs e)
+        {
+            crosshairHandler.SetGeneralColorForAll();
+            Reload_Weapon_UI();
+            MessageBox.Show("Succesfully updated your weapon options");
+        }
+
+        private void coordinateText_updated(object sender, EventArgs e)
+        {
+            this.selectedWeaponSettings.CustomCrosshairCoordinates = this.weaponCoordinates.Text;    
+            if (this.weaponCoordinates.Enabled)
+            {
+                this.selectedSuggestionBox.Image = null;
+            }
+        }
         private void saveButton_click(object sender, EventArgs e) {
-            crosshairHandler.EditStoreWeapon(this.selectedWeaponSettings);
+            crosshairHandler.SaveWeaponSettings(this.selectedWeaponSettings);
             MessageBox.Show("Values saved for: " + this.selectedWeaponName, "Save Confirmation");
         }
 
@@ -259,12 +311,35 @@ namespace Ut3CustomCrosshairs
         {
             this.selectedWeaponSettings.UseGeneralCoordinates = this.coordsCheckBox.Checked;
             this.coordinateBox.Enabled = !this.coordsCheckBox.Checked;
+            if (this.selectedWeaponSettings.WeaponSection == WeaponIndex.General)
+            {
+                update_set_all_buttons(this.selectedWeaponSettings);
+            }           
         }
 
         private void colorCheckBox_changed(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.UseGeneralColor = this.colorCheckBox.Checked;
             this.colorBox.Enabled = !this.colorCheckBox.Checked;
+            if (this.selectedWeaponSettings.WeaponSection == WeaponIndex.General)
+            {
+                update_set_all_buttons(this.selectedWeaponSettings);
+            }
+        }
+
+        private void suggestionCheckBox_changed(object sender, EventArgs e)
+        {
+            this.selectedWeaponSettings.UseSuggestions = this.suggestionCheckBox.Checked;
+            this.weaponCoordinates.Enabled = !this.suggestionCheckBox.Checked;
+            this.groupBox3.Visible = this.suggestionCheckBox.Checked;
+            this.selectedSuggestionBox.Visible = this.suggestionCheckBox.Checked;
+        }
+
+        private void saveAll_click(object sender, EventArgs e)
+        {
+            crosshairHandler.SaveFile();
+            MessageBox.Show("Your settings were saved in the UTWeapon.ini file. Open UT3 and have fun!"+ "\nA backup of your old UTWeapon.ini file can be found in the same directory as OldUTWeapon.ini" + "\nIf you wanna revert it all, you can just delete the UTWeapon.ini and rename OldUTWeapon.ini to UTWeapon.ini" +"\nThis app will now close...");
+            this.Close();
         }
         #endregion
 
@@ -367,237 +442,312 @@ namespace Ut3CustomCrosshairs
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.A4;
             this.selectedWeaponSettings.SuggestionImage = Resources.A4;
+            this.selectedSuggestionBox.Image = Resources.A4;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.A4;
         }
          private void a5_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.A5;
             this.selectedWeaponSettings.SuggestionImage = Resources.A5;
+            this.selectedSuggestionBox.Image = Resources.A5;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.A5;
         }
          private void a6_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.A6;
             this.selectedWeaponSettings.SuggestionImage = Resources.A6;
+            this.selectedSuggestionBox.Image = Resources.A6;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.A6;
         }
          private void a7_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.A7;
             this.selectedWeaponSettings.SuggestionImage = Resources.A7;
+            this.selectedSuggestionBox.Image = Resources.A7;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.A7;
         }
          private void a8_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.A8;
             this.selectedWeaponSettings.SuggestionImage = Resources.A8;
+            this.selectedSuggestionBox.Image = Resources.A8;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.A8;
         }
         private void a9_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.A9;
             this.selectedWeaponSettings.SuggestionImage = Resources.A9;
+            this.selectedSuggestionBox.Image = Resources.A9;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.A9;
         }
         private void b1_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.B1;
             this.selectedWeaponSettings.SuggestionImage = Resources.B1;
+            this.selectedSuggestionBox.Image = Resources.B1;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.B1;
         }
          private void b2_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.B2;
             this.selectedWeaponSettings.SuggestionImage = Resources.B2;
+            this.selectedSuggestionBox.Image = Resources.B2;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.B2;
         }
          private void b3_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.B3;
             this.selectedWeaponSettings.SuggestionImage = Resources.B3;
+            this.selectedSuggestionBox.Image = Resources.B3;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.B3;
         }
          private void b4_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.B4;
             this.selectedWeaponSettings.SuggestionImage = Resources.B4;
+            this.selectedSuggestionBox.Image = Resources.B4;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.B4;
         }
          private void b5_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.B5;
             this.selectedWeaponSettings.SuggestionImage = Resources.B5;
+            this.selectedSuggestionBox.Image = Resources.B5;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.B5;
         }
          private void b6_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.B6;
             this.selectedWeaponSettings.SuggestionImage = Resources.B6;
+            this.selectedSuggestionBox.Image = Resources.B6;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.B6;
         }
          private void b7_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.B7;
             this.selectedWeaponSettings.SuggestionImage = Resources.B7;
+            this.selectedSuggestionBox.Image = Resources.B7;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.B7;
         }
          private void b8_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.B8;
             this.selectedWeaponSettings.SuggestionImage = Resources.B8;
+            this.selectedSuggestionBox.Image = Resources.B8;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.B8;
         }
         private void c1_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.C1;
+            this.selectedWeaponSettings.SuggestionImage = Resources.C1;
+            this.selectedSuggestionBox.Image = Resources.C1;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.C1;
         }
          private void c2_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.C2;
+            this.selectedWeaponSettings.SuggestionImage = Resources.C2;
+            this.selectedSuggestionBox.Image = Resources.C2;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.C2;
         }
          private void c3_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.C3;
+            this.selectedWeaponSettings.SuggestionImage = Resources.C3;
+            this.selectedSuggestionBox.Image = Resources.C3;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.C3;
         }
          private void c4_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.C4;
+            this.selectedWeaponSettings.SuggestionImage = Resources.C4;
+            this.selectedSuggestionBox.Image = Resources.C4;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.C4;
         }
          private void c5_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.C5;
+            this.selectedWeaponSettings.SuggestionImage = Resources.C5;
+            this.selectedSuggestionBox.Image = Resources.C5;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.C5;
         }
          private void c6_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.C6;
+            this.selectedWeaponSettings.SuggestionImage = Resources.C6;
+            this.selectedSuggestionBox.Image = Resources.C6;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.C6;
         }
          private void c7_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.C7;
+            this.selectedWeaponSettings.SuggestionImage = Resources.C7;
+            this.selectedSuggestionBox.Image = Resources.C7;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.C7;
         }
          private void c8_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.C8;
+            this.selectedWeaponSettings.SuggestionImage = Resources.C8;
+            this.selectedSuggestionBox.Image = Resources.C8;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.C8;
         }
         private void d1_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.D1;
+            this.selectedWeaponSettings.SuggestionImage = Resources.D1;
+            this.selectedSuggestionBox.Image = Resources.D1;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.D1;
         }
          private void d2_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.D2;
+            this.selectedWeaponSettings.SuggestionImage = Resources.D2;
+            this.selectedSuggestionBox.Image = Resources.D2;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.D2;
         }
          private void d3_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.D3;
+            this.selectedWeaponSettings.SuggestionImage = Resources.D3;
+            this.selectedSuggestionBox.Image = Resources.D3;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.D3;
         }
          private void d4_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.D4;
+            this.selectedWeaponSettings.SuggestionImage = Resources.D4;
+            this.selectedSuggestionBox.Image = Resources.D4;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.D4;
         }
          private void d5_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.D5;
+            this.selectedWeaponSettings.SuggestionImage = Resources.D5;
+            this.selectedSuggestionBox.Image = Resources.D5;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.D5;
         }
          private void d6_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.D6;
+            this.selectedWeaponSettings.SuggestionImage = Resources.D6;
+            this.selectedSuggestionBox.Image = Resources.D6;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.D6;
         }
          private void d7_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.D7;
+            this.selectedWeaponSettings.SuggestionImage = Resources.D7;
+            this.selectedSuggestionBox.Image = Resources.D7;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.D7;
         }
         private void e1_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.E1;
+            this.selectedWeaponSettings.SuggestionImage = Resources.E1;
+            this.selectedSuggestionBox.Image = Resources.E1;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.E1;
         }
          private void e2_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.E2;
+            this.selectedWeaponSettings.SuggestionImage = Resources.E2;
+            this.selectedSuggestionBox.Image = Resources.E2;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.E2;
         }
          private void e3_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.E3;
+            this.selectedWeaponSettings.SuggestionImage = Resources.E3;
+            this.selectedSuggestionBox.Image = Resources.E3;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.E3;
         }
          private void e4_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.E4;
+            this.selectedWeaponSettings.SuggestionImage = Resources.E4;
+            this.selectedSuggestionBox.Image = Resources.E4;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.E4;
         }
          private void e5_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.E5;
+            this.selectedWeaponSettings.SuggestionImage = Resources.E5;
+            this.selectedSuggestionBox.Image = Resources.E5;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.E5;
         }
          private void e6_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.E6;
+            this.selectedWeaponSettings.SuggestionImage = Resources.E6;
+            this.selectedSuggestionBox.Image = Resources.E6;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.E6;
         }
         private void f1_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.F1;
+            this.selectedWeaponSettings.SuggestionImage = Resources.F1;
+            this.selectedSuggestionBox.Image = Resources.F1;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.F1;
         }
          private void f2_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.F2;
+            this.selectedWeaponSettings.SuggestionImage = Resources.F2;
+            this.selectedSuggestionBox.Image = Resources.F2;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.F2;
         }
          private void f3_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.F3;
+            this.selectedWeaponSettings.SuggestionImage = Resources.F3;
+            this.selectedSuggestionBox.Image = Resources.F3;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.F3;
         }
          private void f4_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.F4;
+            this.selectedWeaponSettings.SuggestionImage = Resources.F4;
+            this.selectedSuggestionBox.Image = Resources.F4;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.F4;
         }
          private void f5_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.F5;
+            this.selectedWeaponSettings.SuggestionImage = Resources.F5;
+            this.selectedSuggestionBox.Image = Resources.F5;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.F5;
         }
          private void f6_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.F6;
+            this.selectedWeaponSettings.SuggestionImage = Resources.F6;
+            this.selectedSuggestionBox.Image = Resources.F6;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.F6;
         }
         private void g1_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.G1;
+            this.selectedWeaponSettings.SuggestionImage = Resources.G1;
+            this.selectedSuggestionBox.Image = Resources.G1;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.G1;
         }
          private void g2_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.G2;
+            this.selectedWeaponSettings.SuggestionImage = Resources.G2;
+            this.selectedSuggestionBox.Image = Resources.G2;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.G2;
         }
          private void g3_click(object sender, EventArgs e)
         {
             this.selectedWeaponSettings.CustomCrosshairCoordinates = CrosshairSuggestionsCoordinates.G3;
+            this.selectedWeaponSettings.SuggestionImage = Resources.G3;
+            this.selectedSuggestionBox.Image = Resources.G3;
             this.weaponCoordinates.Text = CrosshairSuggestionsCoordinates.G3;
         }
 
         #endregion
+      
     }
 }

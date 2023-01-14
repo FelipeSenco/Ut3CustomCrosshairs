@@ -10,6 +10,7 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
     {
         private IniParser weaponIniFile;
         private WeaponStore weaponStore;
+
         public CustomCrosshairHandler(IniParser iniFile, WeaponStore store)
         {
             weaponIniFile = iniFile;
@@ -20,28 +21,45 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
         public CustomCrosshairSettings GetWeaponSettings(string weaponSection)
         {
             string color = weaponIniFile.GetSetting(weaponSection, "CrosshairColor");
-            string coordinates = weaponIniFile.GetSetting(weaponSection, "CustomCrosshairCoordinates");
+            string coordinates = weaponIniFile.GetSetting(
+                weaponSection,
+                "CustomCrosshairCoordinates"
+            );
             return new CustomCrosshairSettings()
             {
-                WeaponSection= weaponSection,   
+                WeaponSection = weaponSection,
                 CrosshairColor = color,
                 CustomCrosshairCoordinates = coordinates,
                 Color = ConvertToColor(color),
                 UseGeneralColor = color is null,
                 UseGeneralCoordinates = coordinates is null,
                 UseSuggestions = false,
-            };            
+            };
         }
 
         public void SaveWeaponSettings(CustomCrosshairSettings weaponSettings)
         {
-            if (weaponSettings.CustomCrosshairCoordinates is not null && !weaponSettings.UseGeneralCoordinates)
-                weaponIniFile.AddSetting(weaponSettings.WeaponSection, "CustomCrosshairCoordinates", weaponSettings.CustomCrosshairCoordinates);
+            if (
+                weaponSettings.CustomCrosshairCoordinates is not null
+                && !weaponSettings.UseGeneralCoordinates
+            )
+                weaponIniFile.AddSetting(
+                    weaponSettings.WeaponSection,
+                    "CustomCrosshairCoordinates",
+                    weaponSettings.CustomCrosshairCoordinates
+                );
             else
-                weaponIniFile.DeleteSetting(weaponSettings.WeaponSection, "CustomCrosshairCoordinates");
+                weaponIniFile.DeleteSetting(
+                    weaponSettings.WeaponSection,
+                    "CustomCrosshairCoordinates"
+                );
 
             if (weaponSettings.CrosshairColor is not null && !weaponSettings.UseGeneralColor)
-                weaponIniFile.AddSetting(weaponSettings.WeaponSection, "CrosshairColor", weaponSettings.CrosshairColor);
+                weaponIniFile.AddSetting(
+                    weaponSettings.WeaponSection,
+                    "CrosshairColor",
+                    weaponSettings.CrosshairColor
+                );
             else
                 weaponIniFile.DeleteSetting(weaponSettings.WeaponSection, "CrosshairColor");
 
@@ -55,9 +73,62 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
 
         public void EditStoreWeapon(CustomCrosshairSettings newWeaponSettings)
         {
-            var currentSetting = weaponStore.AppWeaponSettings.Find(e => e.WeaponSection == newWeaponSettings.WeaponSection);
-            weaponStore.AppWeaponSettings.Remove(currentSetting);
-            weaponStore.AppWeaponSettings.Add(newWeaponSettings);
+            var currentSetting = weaponStore.AppWeaponSettings.Find(
+                e => e.WeaponSection == newWeaponSettings.WeaponSection
+            );
+            currentSetting.WeaponSection = newWeaponSettings.WeaponSection;
+            currentSetting.CrosshairColor = newWeaponSettings.CrosshairColor;
+            currentSetting.CustomCrosshairCoordinates =
+            newWeaponSettings.CustomCrosshairCoordinates;
+            currentSetting.Color = newWeaponSettings.Color;
+            currentSetting.UseGeneralColor = newWeaponSettings.UseGeneralColor;
+            currentSetting.UseGeneralCoordinates = newWeaponSettings.UseGeneralCoordinates;
+            currentSetting.UseSuggestions = newWeaponSettings.UseSuggestions;
+            currentSetting.SuggestionImage = newWeaponSettings.SuggestionImage;
+        }
+
+        public void SetGeneralCoordinatesForAll()
+        {
+            weaponStore.AppWeaponSettings.ForEach(
+                (setting) =>
+                {
+                    if (setting.WeaponSection != WeaponIndex.General)
+                    {
+                        setting.UseGeneralCoordinates = true;
+                    }
+                }
+            );
+            weaponStore.AppWeaponSettings.ForEach(
+                (setting) =>
+                {
+                    if (setting.WeaponSection != WeaponIndex.General)
+                    {
+                        SaveWeaponSettings(setting);
+                    }
+                }
+            );
+        }
+
+        public void SetGeneralColorForAll()
+        {
+            weaponStore.AppWeaponSettings.ForEach(
+                (setting) =>
+                {
+                    if (setting.WeaponSection != WeaponIndex.General)
+                    {
+                        setting.UseGeneralColor = true;
+                    }
+                }
+            );
+            weaponStore.AppWeaponSettings.ForEach(
+                (setting) =>
+                {
+                    if (setting.WeaponSection != WeaponIndex.General)
+                    {
+                        SaveWeaponSettings(setting);
+                    }
+                }
+            );
         }
 
         private void Store_File_Values()
@@ -65,17 +136,31 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
             weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.General.ToString()));
             weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.Enforcer.ToString()));
             weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.BioRifle.ToString()));
-            weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.ShockRifle.ToString()));
+            weaponStore.FileWeaponSettings.Add(
+                GetWeaponSettings(WeaponIndex.ShockRifle.ToString())
+            );
             weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.LinkGun.ToString()));
             weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.Stinger.ToString()));
-            weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.FlakCannon.ToString()));
-            weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.RocketLauncher.ToString()));
-            weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.SniperRifle.ToString()));
-            weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.Translocator.ToString()));
+            weaponStore.FileWeaponSettings.Add(
+                GetWeaponSettings(WeaponIndex.FlakCannon.ToString())
+            );
+            weaponStore.FileWeaponSettings.Add(
+                GetWeaponSettings(WeaponIndex.RocketLauncher.ToString())
+            );
+            weaponStore.FileWeaponSettings.Add(
+                GetWeaponSettings(WeaponIndex.SniperRifle.ToString())
+            );
+            weaponStore.FileWeaponSettings.Add(
+                GetWeaponSettings(WeaponIndex.Translocator.ToString())
+            );
             weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.Redeemer.ToString()));
             weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.Avril.ToString()));
-            weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.InstagibRifle.ToString()));
-            weaponStore.FileWeaponSettings.Add(GetWeaponSettings(WeaponIndex.ImpactHammer.ToString()));
+            weaponStore.FileWeaponSettings.Add(
+                GetWeaponSettings(WeaponIndex.InstagibRifle.ToString())
+            );
+            weaponStore.FileWeaponSettings.Add(
+                GetWeaponSettings(WeaponIndex.ImpactHammer.ToString())
+            );
 
             //Initially will set the app values to be the same as the file values, just so I can load initial data if there is any associated with each weapon
             weaponStore.FileWeaponSettings.ForEach(weaponSetting =>
@@ -84,15 +169,20 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
             });
         }
 
+        public void SaveFile()
+        {
+            weaponIniFile.SaveSettings();
+        }
+
         public Color? ConvertToColor(string? color)
-        {            
+        {
             if (color == null)
             {
                 return null;
             }
             string numberString = "";
             bool wasAddingNumbers = false;
-            foreach(char c in color)
+            foreach (char c in color)
             {
                 try
                 {
@@ -114,11 +204,30 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
             int Rint = Convert.ToInt32(stringNumbers[0]);
             int Gint = Convert.ToInt32(stringNumbers[1]);
             int Bint = Convert.ToInt32(stringNumbers[2]);
-            int Aint = Convert.ToInt32(stringNumbers[3]);       
-          
-            Color convertedColor = Color.FromArgb(Aint,Rint,Gint,Bint);
-            
+            int Aint = Convert.ToInt32(stringNumbers[3]);
+
+            Color convertedColor = Color.FromArgb(Aint, Rint, Gint, Bint);
+
             return convertedColor;
+        }
+
+        public CustomCrosshairSettings CreateWeaponSettingsCopy(
+            CustomCrosshairSettings weaponSettings
+        )
+        {
+            var settings = new CustomCrosshairSettings()
+            {
+                WeaponSection = weaponSettings.WeaponSection,
+                CrosshairColor = weaponSettings.CrosshairColor,
+                CustomCrosshairCoordinates = weaponSettings.CustomCrosshairCoordinates,
+                Color = weaponSettings.Color,
+                UseGeneralColor = weaponSettings.UseGeneralColor,
+                UseGeneralCoordinates = weaponSettings.UseGeneralCoordinates,
+                UseSuggestions = weaponSettings.UseSuggestions,
+                SuggestionImage = weaponSettings.SuggestionImage,
+            };
+
+            return settings;
         }
     }
 }
