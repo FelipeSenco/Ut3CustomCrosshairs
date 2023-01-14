@@ -57,10 +57,12 @@ namespace Ut3CustomCrosshairs
             this.enforcerLink0 = new System.Windows.Forms.LinkLabel();
             this.enforcerLink1 = new System.Windows.Forms.LinkLabel();
             this.enforcerLink2 = new System.Windows.Forms.LinkLabel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.weaponImgBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.SaveAndCloseButton = new System.Windows.Forms.Button();
+            this.SetGeneralColorForAllButton = new System.Windows.Forms.Button();
+            this.SetGeneralCoordsForAllButton = new System.Windows.Forms.Button();
+            this.ResetAllButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.colorBox = new System.Windows.Forms.GroupBox();
@@ -126,11 +128,13 @@ namespace Ut3CustomCrosshairs
             this.pictureBox15 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.ResetAllButton = new System.Windows.Forms.Button();
-            this.SaveAndCloseButton = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.SetGeneralCoordsForAllButton = new System.Windows.Forms.Button();
-            this.SetGeneralColorForAllButton = new System.Windows.Forms.Button();
+            this.ut3DesignWebLink = new System.Windows.Forms.LinkLabel();
+            this.crosshairDesignLabel = new System.Windows.Forms.Label();
+            this.crosshairDesignSuggestion = new System.Windows.Forms.Label();
+            this.creditsLabel = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.weaponImgBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -186,6 +190,7 @@ namespace Ut3CustomCrosshairs
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -217,7 +222,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.impactHammerLink.AutoSize = true;
             this.impactHammerLink.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.impactHammerLink.Location = new System.Drawing.Point(9, 111);
+            this.impactHammerLink.Location = new System.Drawing.Point(11, 55);
             this.impactHammerLink.Name = "impactHammerLink";
             this.impactHammerLink.Size = new System.Drawing.Size(122, 21);
             this.impactHammerLink.TabIndex = 2;
@@ -229,7 +234,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.enforcerLink.AutoSize = true;
             this.enforcerLink.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.enforcerLink.Location = new System.Drawing.Point(11, 132);
+            this.enforcerLink.Location = new System.Drawing.Point(13, 76);
             this.enforcerLink.Name = "enforcerLink";
             this.enforcerLink.Size = new System.Drawing.Size(68, 21);
             this.enforcerLink.TabIndex = 2;
@@ -241,7 +246,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkLabel2.Location = new System.Drawing.Point(11, 153);
+            this.linkLabel2.Location = new System.Drawing.Point(13, 97);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(67, 21);
             this.linkLabel2.TabIndex = 2;
@@ -253,7 +258,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.linkLabel3.AutoSize = true;
             this.linkLabel3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkLabel3.Location = new System.Drawing.Point(11, 174);
+            this.linkLabel3.Location = new System.Drawing.Point(13, 118);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(87, 21);
             this.linkLabel3.TabIndex = 2;
@@ -265,7 +270,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.linkLabel4.AutoSize = true;
             this.linkLabel4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkLabel4.Location = new System.Drawing.Point(11, 195);
+            this.linkLabel4.Location = new System.Drawing.Point(13, 139);
             this.linkLabel4.Name = "linkLabel4";
             this.linkLabel4.Size = new System.Drawing.Size(72, 21);
             this.linkLabel4.TabIndex = 2;
@@ -277,7 +282,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.linkLabel5.AutoSize = true;
             this.linkLabel5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkLabel5.Location = new System.Drawing.Point(11, 216);
+            this.linkLabel5.Location = new System.Drawing.Point(13, 160);
             this.linkLabel5.Name = "linkLabel5";
             this.linkLabel5.Size = new System.Drawing.Size(59, 21);
             this.linkLabel5.TabIndex = 2;
@@ -289,7 +294,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.enforcerLink6.AutoSize = true;
             this.enforcerLink6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.enforcerLink6.Location = new System.Drawing.Point(9, 75);
+            this.enforcerLink6.Location = new System.Drawing.Point(11, 19);
             this.enforcerLink6.Name = "enforcerLink6";
             this.enforcerLink6.Size = new System.Drawing.Size(135, 21);
             this.enforcerLink6.TabIndex = 2;
@@ -301,7 +306,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.linkLabel6.AutoSize = true;
             this.linkLabel6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkLabel6.Location = new System.Drawing.Point(9, 237);
+            this.linkLabel6.Location = new System.Drawing.Point(11, 181);
             this.linkLabel6.Name = "linkLabel6";
             this.linkLabel6.Size = new System.Drawing.Size(96, 21);
             this.linkLabel6.TabIndex = 2;
@@ -313,7 +318,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.linkLabel7.AutoSize = true;
             this.linkLabel7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkLabel7.Location = new System.Drawing.Point(10, 258);
+            this.linkLabel7.Location = new System.Drawing.Point(12, 202);
             this.linkLabel7.Name = "linkLabel7";
             this.linkLabel7.Size = new System.Drawing.Size(125, 21);
             this.linkLabel7.TabIndex = 2;
@@ -325,7 +330,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.linkLabel8.AutoSize = true;
             this.linkLabel8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkLabel8.Location = new System.Drawing.Point(10, 279);
+            this.linkLabel8.Location = new System.Drawing.Point(12, 223);
             this.linkLabel8.Name = "linkLabel8";
             this.linkLabel8.Size = new System.Drawing.Size(90, 21);
             this.linkLabel8.TabIndex = 2;
@@ -337,7 +342,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.linkLabel9.AutoSize = true;
             this.linkLabel9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.linkLabel9.Location = new System.Drawing.Point(10, 300);
+            this.linkLabel9.Location = new System.Drawing.Point(12, 244);
             this.linkLabel9.Name = "linkLabel9";
             this.linkLabel9.Size = new System.Drawing.Size(95, 21);
             this.linkLabel9.TabIndex = 2;
@@ -349,7 +354,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.enforcerLink0.AutoSize = true;
             this.enforcerLink0.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.enforcerLink0.Location = new System.Drawing.Point(10, 321);
+            this.enforcerLink0.Location = new System.Drawing.Point(12, 265);
             this.enforcerLink0.Name = "enforcerLink0";
             this.enforcerLink0.Size = new System.Drawing.Size(42, 21);
             this.enforcerLink0.TabIndex = 2;
@@ -361,7 +366,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.enforcerLink1.AutoSize = true;
             this.enforcerLink1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.enforcerLink1.Location = new System.Drawing.Point(10, 342);
+            this.enforcerLink1.Location = new System.Drawing.Point(12, 286);
             this.enforcerLink1.Name = "enforcerLink1";
             this.enforcerLink1.Size = new System.Drawing.Size(81, 21);
             this.enforcerLink1.TabIndex = 2;
@@ -373,31 +378,13 @@ namespace Ut3CustomCrosshairs
             // 
             this.enforcerLink2.AutoSize = true;
             this.enforcerLink2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.enforcerLink2.Location = new System.Drawing.Point(9, 364);
+            this.enforcerLink2.Location = new System.Drawing.Point(11, 308);
             this.enforcerLink2.Name = "enforcerLink2";
             this.enforcerLink2.Size = new System.Drawing.Size(100, 21);
             this.enforcerLink2.TabIndex = 2;
             this.enforcerLink2.TabStop = true;
             this.enforcerLink2.Text = "Instagib Rifle";
             this.enforcerLink2.Click += new System.EventHandler(this.instagib_link_click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(287, 15);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "If there is no custom value associated with a weapon,";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1, 38);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(267, 15);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "The general settings will be used for that weapon.";
             // 
             // weaponImgBox
             // 
@@ -412,9 +399,11 @@ namespace Ut3CustomCrosshairs
             // 
             this.groupBox1.Controls.Add(this.linkLabel3);
             this.groupBox1.Controls.Add(this.impactHammerLink);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.SaveAndCloseButton);
+            this.groupBox1.Controls.Add(this.SetGeneralColorForAllButton);
             this.groupBox1.Controls.Add(this.linkLabel6);
+            this.groupBox1.Controls.Add(this.SetGeneralCoordsForAllButton);
+            this.groupBox1.Controls.Add(this.ResetAllButton);
             this.groupBox1.Controls.Add(this.enforcerLink);
             this.groupBox1.Controls.Add(this.enforcerLink1);
             this.groupBox1.Controls.Add(this.enforcerLink2);
@@ -426,12 +415,52 @@ namespace Ut3CustomCrosshairs
             this.groupBox1.Controls.Add(this.linkLabel2);
             this.groupBox1.Controls.Add(this.linkLabel9);
             this.groupBox1.Controls.Add(this.linkLabel8);
-            this.groupBox1.Location = new System.Drawing.Point(3, 138);
+            this.groupBox1.Location = new System.Drawing.Point(3, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(320, 403);
+            this.groupBox1.Size = new System.Drawing.Size(320, 741);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Visible = false;
+            // 
+            // SaveAndCloseButton
+            // 
+            this.SaveAndCloseButton.Location = new System.Drawing.Point(7, 699);
+            this.SaveAndCloseButton.Name = "SaveAndCloseButton";
+            this.SaveAndCloseButton.Size = new System.Drawing.Size(288, 33);
+            this.SaveAndCloseButton.TabIndex = 8;
+            this.SaveAndCloseButton.Text = "Save Changes && Finish";
+            this.SaveAndCloseButton.UseVisualStyleBackColor = true;
+            this.SaveAndCloseButton.Click += new System.EventHandler(this.saveAll_click);
+            // 
+            // SetGeneralColorForAllButton
+            // 
+            this.SetGeneralColorForAllButton.Location = new System.Drawing.Point(9, 602);
+            this.SetGeneralColorForAllButton.Name = "SetGeneralColorForAllButton";
+            this.SetGeneralColorForAllButton.Size = new System.Drawing.Size(288, 33);
+            this.SetGeneralColorForAllButton.TabIndex = 8;
+            this.SetGeneralColorForAllButton.Text = "Use General Settings Color for All";
+            this.SetGeneralColorForAllButton.UseVisualStyleBackColor = true;
+            this.SetGeneralColorForAllButton.Click += new System.EventHandler(this.SetGeneralColorForAllButton_click);
+            // 
+            // SetGeneralCoordsForAllButton
+            // 
+            this.SetGeneralCoordsForAllButton.Location = new System.Drawing.Point(7, 554);
+            this.SetGeneralCoordsForAllButton.Name = "SetGeneralCoordsForAllButton";
+            this.SetGeneralCoordsForAllButton.Size = new System.Drawing.Size(288, 33);
+            this.SetGeneralCoordsForAllButton.TabIndex = 8;
+            this.SetGeneralCoordsForAllButton.Text = "Use General Settings Coordinates for All";
+            this.SetGeneralCoordsForAllButton.UseVisualStyleBackColor = true;
+            this.SetGeneralCoordsForAllButton.Click += new System.EventHandler(this.SetGeneralCoordsForAllButton_click);
+            // 
+            // ResetAllButton
+            // 
+            this.ResetAllButton.Location = new System.Drawing.Point(7, 652);
+            this.ResetAllButton.Name = "ResetAllButton";
+            this.ResetAllButton.Size = new System.Drawing.Size(288, 33);
+            this.ResetAllButton.TabIndex = 8;
+            this.ResetAllButton.Text = "Reset All";
+            this.ResetAllButton.UseVisualStyleBackColor = true;
+            this.ResetAllButton.Click += new System.EventHandler(this.resetAllButton_click);
             // 
             // groupBox2
             // 
@@ -439,15 +468,16 @@ namespace Ut3CustomCrosshairs
             this.groupBox2.Controls.Add(this.saveButton);
             this.groupBox2.Controls.Add(this.colorBox);
             this.groupBox2.Controls.Add(this.coordinateBox);
+            this.groupBox2.Controls.Add(this.selectedSuggestionBox);
             this.groupBox2.Controls.Add(this.colorCheckBox);
             this.groupBox2.Controls.Add(this.coordsCheckBox);
             this.groupBox2.Controls.Add(this.weaponLabel);
             this.groupBox2.Controls.Add(this.weaponImgBox);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(345, 12);
+            this.groupBox2.Location = new System.Drawing.Point(345, 9);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(621, 746);
+            this.groupBox2.Size = new System.Drawing.Size(621, 749);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Visible = false;
@@ -458,7 +488,7 @@ namespace Ut3CustomCrosshairs
             this.saveButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.saveButton.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.saveButton.ForeColor = System.Drawing.Color.Turquoise;
-            this.saveButton.Location = new System.Drawing.Point(356, 411);
+            this.saveButton.Location = new System.Drawing.Point(356, 414);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(258, 36);
             this.saveButton.TabIndex = 18;
@@ -536,12 +566,11 @@ namespace Ut3CustomCrosshairs
             this.coordinateBox.Controls.Add(this.suggestionCheckBox);
             this.coordinateBox.Controls.Add(this.CoordinatesExampleLabel);
             this.coordinateBox.Controls.Add(this.weaponCoordinates);
-            this.coordinateBox.Controls.Add(this.selectedSuggestionBox);
             this.coordinateBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.coordinateBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.coordinateBox.Location = new System.Drawing.Point(7, 490);
             this.coordinateBox.Name = "coordinateBox";
-            this.coordinateBox.Size = new System.Drawing.Size(591, 83);
+            this.coordinateBox.Size = new System.Drawing.Size(513, 83);
             this.coordinateBox.TabIndex = 16;
             this.coordinateBox.TabStop = false;
             this.coordinateBox.Text = "Coordinates";
@@ -549,7 +578,7 @@ namespace Ut3CustomCrosshairs
             // suggestionCheckBox
             // 
             this.suggestionCheckBox.AutoSize = true;
-            this.suggestionCheckBox.Location = new System.Drawing.Point(386, 42);
+            this.suggestionCheckBox.Location = new System.Drawing.Point(378, 17);
             this.suggestionCheckBox.Name = "suggestionCheckBox";
             this.suggestionCheckBox.Size = new System.Drawing.Size(134, 24);
             this.suggestionCheckBox.TabIndex = 13;
@@ -581,10 +610,10 @@ namespace Ut3CustomCrosshairs
             // 
             this.selectedSuggestionBox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.selectedSuggestionBox.Image = global::Ut3CustomCrosshairs.Properties.Resources.B8;
-            this.selectedSuggestionBox.Location = new System.Drawing.Point(520, 15);
+            this.selectedSuggestionBox.Location = new System.Drawing.Point(523, 497);
             this.selectedSuggestionBox.Margin = new System.Windows.Forms.Padding(0);
             this.selectedSuggestionBox.Name = "selectedSuggestionBox";
-            this.selectedSuggestionBox.Size = new System.Drawing.Size(65, 62);
+            this.selectedSuggestionBox.Size = new System.Drawing.Size(91, 93);
             this.selectedSuggestionBox.TabIndex = 0;
             this.selectedSuggestionBox.TabStop = false;
             this.selectedSuggestionBox.UseWaitCursor = true;
@@ -622,7 +651,7 @@ namespace Ut3CustomCrosshairs
             this.weaponLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.weaponLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.weaponLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.weaponLabel.Location = new System.Drawing.Point(5, 420);
+            this.weaponLabel.Location = new System.Drawing.Point(6, 411);
             this.weaponLabel.Name = "weaponLabel";
             this.weaponLabel.Size = new System.Drawing.Size(118, 27);
             this.weaponLabel.TabIndex = 5;
@@ -750,9 +779,9 @@ namespace Ut3CustomCrosshairs
             this.groupBox3.Controls.Add(this.pictureBox1);
             this.groupBox3.Controls.Add(this.pictureBox2);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox3.Location = new System.Drawing.Point(990, 31);
+            this.groupBox3.Location = new System.Drawing.Point(990, 9);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(523, 590);
+            this.groupBox3.Size = new System.Drawing.Size(523, 744);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Crosshair Suggetions";
@@ -811,7 +840,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox42.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox42.Image = global::Ut3CustomCrosshairs.Properties.Resources.F4;
-            this.pictureBox42.Location = new System.Drawing.Point(430, 417);
+            this.pictureBox42.Location = new System.Drawing.Point(151, 413);
             this.pictureBox42.Name = "pictureBox42";
             this.pictureBox42.Size = new System.Drawing.Size(68, 68);
             this.pictureBox42.TabIndex = 0;
@@ -835,9 +864,9 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox41.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox41.Image = global::Ut3CustomCrosshairs.Properties.Resources.E3;
-            this.pictureBox41.Location = new System.Drawing.Point(430, 339);
+            this.pictureBox41.Location = new System.Drawing.Point(119, 507);
             this.pictureBox41.Name = "pictureBox41";
-            this.pictureBox41.Size = new System.Drawing.Size(65, 68);
+            this.pictureBox41.Size = new System.Drawing.Size(26, 21);
             this.pictureBox41.TabIndex = 0;
             this.pictureBox41.TabStop = false;
             this.pictureBox41.UseWaitCursor = true;
@@ -859,7 +888,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox40.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox40.Image = global::Ut3CustomCrosshairs.Properties.Resources.F3;
-            this.pictureBox40.Location = new System.Drawing.Point(361, 417);
+            this.pictureBox40.Location = new System.Drawing.Point(225, 413);
             this.pictureBox40.Name = "pictureBox40";
             this.pictureBox40.Size = new System.Drawing.Size(65, 68);
             this.pictureBox40.TabIndex = 0;
@@ -883,9 +912,9 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox39.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox39.Image = global::Ut3CustomCrosshairs.Properties.Resources.E2;
-            this.pictureBox39.Location = new System.Drawing.Point(361, 339);
+            this.pictureBox39.Location = new System.Drawing.Point(85, 507);
             this.pictureBox39.Name = "pictureBox39";
-            this.pictureBox39.Size = new System.Drawing.Size(65, 68);
+            this.pictureBox39.Size = new System.Drawing.Size(27, 24);
             this.pictureBox39.TabIndex = 0;
             this.pictureBox39.TabStop = false;
             this.pictureBox39.UseWaitCursor = true;
@@ -907,7 +936,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox47.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox47.Image = global::Ut3CustomCrosshairs.Properties.Resources.G1;
-            this.pictureBox47.Location = new System.Drawing.Point(148, 491);
+            this.pictureBox47.Location = new System.Drawing.Point(435, 339);
             this.pictureBox47.Name = "pictureBox47";
             this.pictureBox47.Size = new System.Drawing.Size(65, 68);
             this.pictureBox47.TabIndex = 0;
@@ -919,7 +948,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox38.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox38.Image = global::Ut3CustomCrosshairs.Properties.Resources.E6;
-            this.pictureBox38.Location = new System.Drawing.Point(148, 417);
+            this.pictureBox38.Location = new System.Drawing.Point(80, 413);
             this.pictureBox38.Name = "pictureBox38";
             this.pictureBox38.Size = new System.Drawing.Size(65, 68);
             this.pictureBox38.TabIndex = 0;
@@ -979,7 +1008,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox46.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox46.Image = global::Ut3CustomCrosshairs.Properties.Resources.G3;
-            this.pictureBox46.Location = new System.Drawing.Point(290, 491);
+            this.pictureBox46.Location = new System.Drawing.Point(293, 339);
             this.pictureBox46.Name = "pictureBox46";
             this.pictureBox46.Size = new System.Drawing.Size(65, 68);
             this.pictureBox46.TabIndex = 0;
@@ -991,9 +1020,9 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox36.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox36.Image = global::Ut3CustomCrosshairs.Properties.Resources.F2;
-            this.pictureBox36.Location = new System.Drawing.Point(290, 417);
+            this.pictureBox36.Location = new System.Drawing.Point(187, 504);
             this.pictureBox36.Name = "pictureBox36";
-            this.pictureBox36.Size = new System.Drawing.Size(65, 68);
+            this.pictureBox36.Size = new System.Drawing.Size(29, 24);
             this.pictureBox36.TabIndex = 0;
             this.pictureBox36.TabStop = false;
             this.pictureBox36.UseWaitCursor = true;
@@ -1015,9 +1044,9 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox35.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox35.Image = global::Ut3CustomCrosshairs.Properties.Resources.E1;
-            this.pictureBox35.Location = new System.Drawing.Point(290, 339);
+            this.pictureBox35.Location = new System.Drawing.Point(39, 507);
             this.pictureBox35.Name = "pictureBox35";
-            this.pictureBox35.Size = new System.Drawing.Size(65, 68);
+            this.pictureBox35.Size = new System.Drawing.Size(40, 33);
             this.pictureBox35.TabIndex = 0;
             this.pictureBox35.TabStop = false;
             this.pictureBox35.UseWaitCursor = true;
@@ -1051,9 +1080,9 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox45.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox45.Image = global::Ut3CustomCrosshairs.Properties.Resources.F6;
-            this.pictureBox45.Location = new System.Drawing.Point(77, 491);
+            this.pictureBox45.Location = new System.Drawing.Point(296, 413);
             this.pictureBox45.Name = "pictureBox45";
-            this.pictureBox45.Size = new System.Drawing.Size(65, 68);
+            this.pictureBox45.Size = new System.Drawing.Size(78, 85);
             this.pictureBox45.TabIndex = 0;
             this.pictureBox45.TabStop = false;
             this.pictureBox45.UseWaitCursor = true;
@@ -1063,7 +1092,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox34.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox34.Image = global::Ut3CustomCrosshairs.Properties.Resources.E5;
-            this.pictureBox34.Location = new System.Drawing.Point(77, 417);
+            this.pictureBox34.Location = new System.Drawing.Point(6, 413);
             this.pictureBox34.Name = "pictureBox34";
             this.pictureBox34.Size = new System.Drawing.Size(65, 68);
             this.pictureBox34.TabIndex = 0;
@@ -1111,7 +1140,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox44.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox44.Image = global::Ut3CustomCrosshairs.Properties.Resources.G2;
-            this.pictureBox44.Location = new System.Drawing.Point(219, 491);
+            this.pictureBox44.Location = new System.Drawing.Point(364, 339);
             this.pictureBox44.Name = "pictureBox44";
             this.pictureBox44.Size = new System.Drawing.Size(65, 68);
             this.pictureBox44.TabIndex = 0;
@@ -1123,7 +1152,7 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox32.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox32.Image = global::Ut3CustomCrosshairs.Properties.Resources.F1;
-            this.pictureBox32.Location = new System.Drawing.Point(219, 417);
+            this.pictureBox32.Location = new System.Drawing.Point(380, 413);
             this.pictureBox32.Name = "pictureBox32";
             this.pictureBox32.Size = new System.Drawing.Size(65, 68);
             this.pictureBox32.TabIndex = 0;
@@ -1171,9 +1200,9 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox43.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox43.Image = global::Ut3CustomCrosshairs.Properties.Resources.F5;
-            this.pictureBox43.Location = new System.Drawing.Point(6, 491);
+            this.pictureBox43.Location = new System.Drawing.Point(0, 505);
             this.pictureBox43.Name = "pictureBox43";
-            this.pictureBox43.Size = new System.Drawing.Size(65, 68);
+            this.pictureBox43.Size = new System.Drawing.Size(33, 32);
             this.pictureBox43.TabIndex = 0;
             this.pictureBox43.TabStop = false;
             this.pictureBox43.UseWaitCursor = true;
@@ -1195,9 +1224,9 @@ namespace Ut3CustomCrosshairs
             // 
             this.pictureBox30.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox30.Image = global::Ut3CustomCrosshairs.Properties.Resources.E4;
-            this.pictureBox30.Location = new System.Drawing.Point(6, 417);
+            this.pictureBox30.Location = new System.Drawing.Point(151, 504);
             this.pictureBox30.Name = "pictureBox30";
-            this.pictureBox30.Size = new System.Drawing.Size(65, 68);
+            this.pictureBox30.Size = new System.Drawing.Size(30, 27);
             this.pictureBox30.TabIndex = 0;
             this.pictureBox30.TabStop = false;
             this.pictureBox30.UseWaitCursor = true;
@@ -1251,61 +1280,76 @@ namespace Ut3CustomCrosshairs
             this.pictureBox8.UseWaitCursor = true;
             this.pictureBox8.Click += new System.EventHandler(this.a8_click);
             // 
-            // ResetAllButton
+            // ut3DesignWebLink
             // 
-            this.ResetAllButton.Location = new System.Drawing.Point(3, 667);
-            this.ResetAllButton.Name = "ResetAllButton";
-            this.ResetAllButton.Size = new System.Drawing.Size(288, 33);
-            this.ResetAllButton.TabIndex = 8;
-            this.ResetAllButton.Text = "Reset All";
-            this.ResetAllButton.UseVisualStyleBackColor = true;
+            this.ut3DesignWebLink.AutoSize = true;
+            this.ut3DesignWebLink.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ut3DesignWebLink.Location = new System.Drawing.Point(6, 47);
+            this.ut3DesignWebLink.Name = "ut3DesignWebLink";
+            this.ut3DesignWebLink.Size = new System.Drawing.Size(281, 19);
+            this.ut3DesignWebLink.TabIndex = 9;
+            this.ut3DesignWebLink.TabStop = true;
+            this.ut3DesignWebLink.Text = "http://ut3.utzone.de/ut3_crosshair_designer/";
+            this.ut3DesignWebLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ut3DesignWebLink_LinkClicked);
+            this.ut3DesignWebLink.Click += new System.EventHandler(this.ut3DesignWebLink_click);
             // 
-            // SaveAndCloseButton
+            // crosshairDesignLabel
             // 
-            this.SaveAndCloseButton.Location = new System.Drawing.Point(3, 714);
-            this.SaveAndCloseButton.Name = "SaveAndCloseButton";
-            this.SaveAndCloseButton.Size = new System.Drawing.Size(288, 33);
-            this.SaveAndCloseButton.TabIndex = 8;
-            this.SaveAndCloseButton.Text = "Save Changes && Finish";
-            this.SaveAndCloseButton.UseVisualStyleBackColor = true;
-            this.SaveAndCloseButton.Click += new System.EventHandler(this.saveAll_click);
+            this.crosshairDesignLabel.AutoSize = true;
+            this.crosshairDesignLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.crosshairDesignLabel.Location = new System.Drawing.Point(6, 19);
+            this.crosshairDesignLabel.Name = "crosshairDesignLabel";
+            this.crosshairDesignLabel.Size = new System.Drawing.Size(372, 19);
+            this.crosshairDesignLabel.TabIndex = 10;
+            this.crosshairDesignLabel.Text = "You can find weapon coordinates at the website link bellow:";
+            this.crosshairDesignLabel.Click += new System.EventHandler(this.crosshairDesignLabel_Click);
             // 
-            // SetGeneralCoordsForAllButton
+            // crosshairDesignSuggestion
             // 
-            this.SetGeneralCoordsForAllButton.Location = new System.Drawing.Point(3, 569);
-            this.SetGeneralCoordsForAllButton.Name = "SetGeneralCoordsForAllButton";
-            this.SetGeneralCoordsForAllButton.Size = new System.Drawing.Size(288, 33);
-            this.SetGeneralCoordsForAllButton.TabIndex = 8;
-            this.SetGeneralCoordsForAllButton.Text = "Use General Settings Coordinates for All";
-            this.SetGeneralCoordsForAllButton.UseVisualStyleBackColor = true;
-            this.SetGeneralCoordsForAllButton.Click += new System.EventHandler(this.SetGeneralCoordsForAllButton_click);
+            this.crosshairDesignSuggestion.AutoSize = true;
+            this.crosshairDesignSuggestion.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.crosshairDesignSuggestion.Location = new System.Drawing.Point(6, 78);
+            this.crosshairDesignSuggestion.Name = "crosshairDesignSuggestion";
+            this.crosshairDesignSuggestion.Size = new System.Drawing.Size(520, 38);
+            this.crosshairDesignSuggestion.TabIndex = 10;
+            this.crosshairDesignSuggestion.Text = "You can input your desired coordinates on the coordinates box.\nOr you can also us" +
+    "e premade suggestions by checking the \"Use uggestions\" option.";
             // 
-            // SetGeneralColorForAllButton
+            // creditsLabel
             // 
-            this.SetGeneralColorForAllButton.Location = new System.Drawing.Point(5, 617);
-            this.SetGeneralColorForAllButton.Name = "SetGeneralColorForAllButton";
-            this.SetGeneralColorForAllButton.Size = new System.Drawing.Size(288, 33);
-            this.SetGeneralColorForAllButton.TabIndex = 8;
-            this.SetGeneralColorForAllButton.Text = "Use General Settings Color for All";
-            this.SetGeneralColorForAllButton.UseVisualStyleBackColor = true;
-            this.SetGeneralColorForAllButton.Click += new System.EventHandler(this.SetGeneralColorForAllButton_click);
+            this.creditsLabel.AutoSize = true;
+            this.creditsLabel.Location = new System.Drawing.Point(1301, 735);
+            this.creditsLabel.Name = "creditsLabel";
+            this.creditsLabel.Size = new System.Drawing.Size(212, 15);
+            this.creditsLabel.TabIndex = 11;
+            this.creditsLabel.Text = "Developed by Felipe \"Drackz\" de Senco";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.crosshairDesignLabel);
+            this.groupBox4.Controls.Add(this.ut3DesignWebLink);
+            this.groupBox4.Controls.Add(this.crosshairDesignSuggestion);
+            this.groupBox4.Location = new System.Drawing.Point(991, 12);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(533, 155);
+            this.groupBox4.TabIndex = 12;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1525, 759);
-            this.Controls.Add(this.SaveAndCloseButton);
-            this.Controls.Add(this.SetGeneralColorForAllButton);
-            this.Controls.Add(this.SetGeneralCoordsForAllButton);
-            this.Controls.Add(this.ResetAllButton);
             this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.creditsLabel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.selectFileButton);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "ink";
             ((System.ComponentModel.ISupportInitialize)(this.weaponImgBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1365,6 +1409,8 @@ namespace Ut3CustomCrosshairs
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1385,8 +1431,6 @@ namespace Ut3CustomCrosshairs
         private LinkLabel enforcerLink0;
         private LinkLabel enforcerLink1;
         private LinkLabel enforcerLink2;
-        private Label label2;
-        private Label label3;
         private PictureBox weaponImgBox;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
@@ -1459,5 +1503,11 @@ namespace Ut3CustomCrosshairs
         private PictureBox pictureBox30;
         private PictureBox pictureBox29;
         private PictureBox pictureBox22;
+        private LinkLabel ut3DesignWebLink;
+        private Label crosshairDesignLabel;
+        private Label crosshairDesignSuggestion;
+        private Label creditsLabel;
+        private GroupBox groupBox4;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

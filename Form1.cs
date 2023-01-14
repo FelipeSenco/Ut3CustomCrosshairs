@@ -3,6 +3,7 @@ using System;
 using Ut3CustomCrosshairs.CustomCrosshair;
 using Ut3CustomCrosshairs.Properties;
 using System.Drawing;
+using System.Diagnostics;
 
 #nullable enable
 namespace Ut3CustomCrosshairs
@@ -55,8 +56,10 @@ namespace Ut3CustomCrosshairs
                 crosshairHandler = new CustomCrosshairHandler(weaponIni, weaponStore);
                 Load_Weapon_Settings(
                     WeaponIndex.General.ToString(),                    
-                    "General Settings"
+                    "General"
                 );
+                //Create a backup of UTWeapon.ini called UTWeaponBackup.ini, before any changes are made to the IniParser class.
+                weaponIni.SaveSettings(this.openFileDialog.FileName.Replace("UTWeapon.ini", "UTWeaponBackup.ini"));
             }
         }
 
@@ -68,7 +71,8 @@ namespace Ut3CustomCrosshairs
 
         private bool File_Path_isCorrect(string filePath)
         {
-            return filePath.Contains("UTWeapon.ini");
+
+            return File.Exists(filePath) && filePath.Contains("UTWeapon.ini");
         }
 
         private void Show_App_Boxes()
@@ -76,6 +80,7 @@ namespace Ut3CustomCrosshairs
             this.groupBox1.Visible = true;
             this.groupBox2.Visible = true;
             this.groupBox3.Visible = true;
+            this.groupBox4.Visible = true;
         }
 
         private void Load_Weapon_Settings(string weaponSection, string weaponName)
@@ -98,8 +103,8 @@ namespace Ut3CustomCrosshairs
 
         private void Update_UI()
         {
-            this.coordsCheckBox.Text = "Use General Settings coordinates";
-            this.colorCheckBox.Text = "Use General Settings color";
+            this.coordsCheckBox.Text = "Use General coordinates";
+            this.colorCheckBox.Text = "Use General color";
             update_weapon_image(this.selectedWeaponSettings.WeaponSection);
             if (this.selectedWeaponSettings.Color is not null)
             {
@@ -108,6 +113,7 @@ namespace Ut3CustomCrosshairs
             }
             else
                 reset_color();
+            this.saveButton.Text = "Save settings for " + this.selectedWeaponName;
             this.weaponLabel.Text = this.selectedWeaponName;
             this.opacityBar.Value = 255;
             this.weaponCoordinates.Enabled = !this.selectedWeaponSettings.UseSuggestions;
@@ -252,7 +258,7 @@ namespace Ut3CustomCrosshairs
             this.SetGeneralCoordsForAllButton.Visible = !generalSettings.UseGeneralCoordinates;
         }
 
-        #region handlers
+        #region EVENT HANDLERS
         private void color_button_click(object sender, EventArgs e)
         {
             this.colorDialog.ShowDialog();
@@ -292,6 +298,12 @@ namespace Ut3CustomCrosshairs
             crosshairHandler.SetGeneralColorForAll();
             Reload_Weapon_UI();
             MessageBox.Show("Succesfully updated your weapon options");
+        }
+
+        private void resetAllButton_click(object sender, EventArgs e)
+        {
+            crosshairHandler.ResetAll();
+            Reload_Weapon_UI();
         }
 
         private void coordinateText_updated(object sender, EventArgs e)
@@ -338,15 +350,19 @@ namespace Ut3CustomCrosshairs
         private void saveAll_click(object sender, EventArgs e)
         {
             crosshairHandler.SaveFile();
-            MessageBox.Show("Your settings were saved in the UTWeapon.ini file. Open UT3 and have fun!"+ "\nA backup of your old UTWeapon.ini file can be found in the same directory as OldUTWeapon.ini" + "\nIf you wanna revert it all, you can just delete the UTWeapon.ini and rename OldUTWeapon.ini to UTWeapon.ini" +"\nThis app will now close...");
+            MessageBox.Show("Your settings were saved in the UTWeapon.ini file. Open UT3 and have fun!"+ "\nA backup of your old UTWeapon.ini file can be found in the same directory as UTWeaponBackup.ini" + "\nIf you wanna revert it all, you can just delete the UTWeapon.ini and rename UTWeaponBackup.ini to UTWeapon.ini" +"\nThis app will now close...");
             this.Close();
+        }
+        private void ut3DesignWebLink_click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo(this.ut3DesignWebLink.Text) { UseShellExecute = true });
         }
         #endregion
 
         #region Link handlers
         private void general_link_click(object sender, EventArgs e)
         {
-            Load_Weapon_Settings(WeaponIndex.General.ToString(), "General Settings");
+            Load_Weapon_Settings(WeaponIndex.General.ToString(), "General");
         }
 
         private void impact_link_click(object sender, EventArgs e)
@@ -748,6 +764,15 @@ namespace Ut3CustomCrosshairs
         }
 
         #endregion
-      
+
+        private void ut3DesignWebLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void crosshairDesignLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

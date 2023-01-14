@@ -87,6 +87,15 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
             currentSetting.SuggestionImage = newWeaponSettings.SuggestionImage;
         }
 
+        public void ResetAll()
+        {
+            this.weaponStore.AppWeaponSettings = new List<CustomCrosshairSettings>();
+            this.weaponStore.FileWeaponSettings.ForEach(fileSetting =>{
+                var settingCopy = CreateWeaponSettingsCopy(fileSetting);
+                this.weaponStore.AppWeaponSettings.Add(settingCopy);
+            });
+        }
+
         public void SetGeneralCoordinatesForAll()
         {
             weaponStore.AppWeaponSettings.ForEach(
@@ -165,7 +174,8 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
             //Initially will set the app values to be the same as the file values, just so I can load initial data if there is any associated with each weapon
             weaponStore.FileWeaponSettings.ForEach(weaponSetting =>
             {
-                weaponStore.AppWeaponSettings.Add(weaponSetting);
+                var settingCopy = CreateWeaponSettingsCopy(weaponSetting);
+                weaponStore.AppWeaponSettings.Add(settingCopy);
             });
         }
 
