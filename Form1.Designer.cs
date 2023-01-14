@@ -93,6 +93,8 @@ namespace Ut3CustomCrosshairs
             this.pictureBox15 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.selectedSuggestionBox = new System.Windows.Forms.PictureBox();
+            this.suggestionCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.weaponImgBox)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -117,6 +119,7 @@ namespace Ut3CustomCrosshairs
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.selectedSuggestionBox)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -319,7 +322,7 @@ namespace Ut3CustomCrosshairs
             // weaponImgBox
             // 
             this.weaponImgBox.Image = ((System.Drawing.Image)(resources.GetObject("weaponImgBox.Image")));
-            this.weaponImgBox.Location = new System.Drawing.Point(7, 19);
+            this.weaponImgBox.Location = new System.Drawing.Point(6, 19);
             this.weaponImgBox.Name = "weaponImgBox";
             this.weaponImgBox.Size = new System.Drawing.Size(608, 389);
             this.weaponImgBox.TabIndex = 4;
@@ -362,7 +365,7 @@ namespace Ut3CustomCrosshairs
             this.groupBox2.Controls.Add(this.weaponImgBox);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(385, 12);
+            this.groupBox2.Location = new System.Drawing.Point(345, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(621, 746);
             this.groupBox2.TabIndex = 6;
@@ -451,13 +454,15 @@ namespace Ut3CustomCrosshairs
             // 
             // coordinateBox
             // 
+            this.coordinateBox.Controls.Add(this.suggestionCheckBox);
             this.coordinateBox.Controls.Add(this.CoordinatesExampleLabel);
             this.coordinateBox.Controls.Add(this.weaponCoordinates);
+            this.coordinateBox.Controls.Add(this.selectedSuggestionBox);
             this.coordinateBox.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.coordinateBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.coordinateBox.Location = new System.Drawing.Point(7, 490);
             this.coordinateBox.Name = "coordinateBox";
-            this.coordinateBox.Size = new System.Drawing.Size(349, 80);
+            this.coordinateBox.Size = new System.Drawing.Size(591, 80);
             this.coordinateBox.TabIndex = 16;
             this.coordinateBox.TabStop = false;
             this.coordinateBox.Text = "Coordinates";
@@ -529,6 +534,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.UseWaitCursor = true;
+            this.pictureBox2.Click += new System.EventHandler(this.a1_click);
             // 
             // pictureBox1
             // 
@@ -540,6 +546,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.UseWaitCursor = true;
+            this.pictureBox1.Click += new System.EventHandler(this.a2_click);
             // 
             // pictureBox3
             // 
@@ -551,6 +558,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox3.TabIndex = 0;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.UseWaitCursor = true;
+            this.pictureBox3.Click += new System.EventHandler(this.a3_click);
             // 
             // pictureBox4
             // 
@@ -562,6 +570,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox4.TabIndex = 0;
             this.pictureBox4.TabStop = false;
             this.pictureBox4.UseWaitCursor = true;
+            this.pictureBox4.Click += new System.EventHandler(this.a4_click);
             // 
             // pictureBox5
             // 
@@ -573,6 +582,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
             this.pictureBox5.UseWaitCursor = true;
+            this.pictureBox5.Click += new System.EventHandler(this.a5_click);
             // 
             // pictureBox6
             // 
@@ -584,6 +594,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox6.TabIndex = 0;
             this.pictureBox6.TabStop = false;
             this.pictureBox6.UseWaitCursor = true;
+            this.pictureBox6.Click += new System.EventHandler(this.a6_click);
             // 
             // groupBox3
             // 
@@ -605,7 +616,7 @@ namespace Ut3CustomCrosshairs
             this.groupBox3.Controls.Add(this.pictureBox1);
             this.groupBox3.Controls.Add(this.pictureBox2);
             this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.groupBox3.Location = new System.Drawing.Point(1012, 23);
+            this.groupBox3.Location = new System.Drawing.Point(986, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(501, 590);
             this.groupBox3.TabIndex = 7;
@@ -624,6 +635,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox14.TabIndex = 0;
             this.pictureBox14.TabStop = false;
             this.pictureBox14.UseWaitCursor = true;
+            this.pictureBox14.Click += new System.EventHandler(this.b5_click);
             // 
             // pictureBox7
             // 
@@ -635,6 +647,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox7.TabIndex = 0;
             this.pictureBox7.TabStop = false;
             this.pictureBox7.UseWaitCursor = true;
+            this.pictureBox7.Click += new System.EventHandler(this.a7_click);
             // 
             // pictureBox13
             // 
@@ -646,6 +659,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox13.TabIndex = 0;
             this.pictureBox13.TabStop = false;
             this.pictureBox13.UseWaitCursor = true;
+            this.pictureBox13.Click += new System.EventHandler(this.b4_click);
             // 
             // pictureBox12
             // 
@@ -657,6 +671,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox12.TabIndex = 0;
             this.pictureBox12.TabStop = false;
             this.pictureBox12.UseWaitCursor = true;
+            this.pictureBox12.Click += new System.EventHandler(this.b3_click);
             // 
             // pictureBox17
             // 
@@ -668,6 +683,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox17.TabIndex = 0;
             this.pictureBox17.TabStop = false;
             this.pictureBox17.UseWaitCursor = true;
+            this.pictureBox17.Click += new System.EventHandler(this.b8_click);
             // 
             // pictureBox11
             // 
@@ -679,6 +695,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox11.TabIndex = 0;
             this.pictureBox11.TabStop = false;
             this.pictureBox11.UseWaitCursor = true;
+            this.pictureBox11.Click += new System.EventHandler(this.b2_click);
             // 
             // pictureBox10
             // 
@@ -690,6 +707,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox10.TabIndex = 0;
             this.pictureBox10.TabStop = false;
             this.pictureBox10.UseWaitCursor = true;
+            this.pictureBox10.Click += new System.EventHandler(this.b1_click);
             // 
             // pictureBox16
             // 
@@ -701,6 +719,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox16.TabIndex = 0;
             this.pictureBox16.TabStop = false;
             this.pictureBox16.UseWaitCursor = true;
+            this.pictureBox16.Click += new System.EventHandler(this.b7_click);
             // 
             // pictureBox9
             // 
@@ -712,6 +731,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox9.TabIndex = 0;
             this.pictureBox9.TabStop = false;
             this.pictureBox9.UseWaitCursor = true;
+            this.pictureBox9.Click += new System.EventHandler(this.a9_click);
             // 
             // pictureBox15
             // 
@@ -723,6 +743,7 @@ namespace Ut3CustomCrosshairs
             this.pictureBox15.TabIndex = 0;
             this.pictureBox15.TabStop = false;
             this.pictureBox15.UseWaitCursor = true;
+            this.pictureBox15.Click += new System.EventHandler(this.b6_click);
             // 
             // pictureBox8
             // 
@@ -734,6 +755,29 @@ namespace Ut3CustomCrosshairs
             this.pictureBox8.TabIndex = 0;
             this.pictureBox8.TabStop = false;
             this.pictureBox8.UseWaitCursor = true;
+            this.pictureBox8.Click += new System.EventHandler(this.a8_click);
+            // 
+            // selectedSuggestionBox
+            // 
+            this.selectedSuggestionBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.selectedSuggestionBox.Image = global::Ut3CustomCrosshairs.Properties.Resources.B8;
+            this.selectedSuggestionBox.Location = new System.Drawing.Point(526, 12);
+            this.selectedSuggestionBox.Name = "selectedSuggestionBox";
+            this.selectedSuggestionBox.Size = new System.Drawing.Size(65, 68);
+            this.selectedSuggestionBox.TabIndex = 0;
+            this.selectedSuggestionBox.TabStop = false;
+            this.selectedSuggestionBox.UseWaitCursor = true;
+            this.selectedSuggestionBox.Click += new System.EventHandler(this.b8_click);
+            // 
+            // suggestionCheckBox
+            // 
+            this.suggestionCheckBox.AutoSize = true;
+            this.suggestionCheckBox.Location = new System.Drawing.Point(386, 42);
+            this.suggestionCheckBox.Name = "suggestionCheckBox";
+            this.suggestionCheckBox.Size = new System.Drawing.Size(134, 24);
+            this.suggestionCheckBox.TabIndex = 13;
+            this.suggestionCheckBox.Text = "Use suggestions";
+            this.suggestionCheckBox.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -775,6 +819,7 @@ namespace Ut3CustomCrosshairs
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.selectedSuggestionBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -832,5 +877,7 @@ namespace Ut3CustomCrosshairs
         private GroupBox coordinateBox;
         private Button saveButton;
         private CheckBox colorCheckBox;
+        private PictureBox selectedSuggestionBox;
+        private CheckBox suggestionCheckBox;
     }
 }

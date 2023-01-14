@@ -29,6 +29,7 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
                 Color = ConvertToColor(color),
                 UseGeneralColor = color is null,
                 UseGeneralCoordinates = coordinates is null,
+                UseSuggestions = false,
             };            
         }
 

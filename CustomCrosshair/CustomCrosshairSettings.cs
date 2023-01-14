@@ -14,7 +14,9 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
         public Color? Color { get; set; }
         public bool UseGeneralCoordinates { get; set; }
         public bool UseGeneralColor{ get; set; }
-        public string WeaponSection { get; set; }          
+        public string WeaponSection { get; set; }  
+        public bool UseSuggestions { get; set; }    
+        public Image? SuggestionImage { get; set; } 
     }
 }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ut3CustomCrosshairs.CustomCrosshair
 {
-    static class CrosshairCoordinates
+    public static class CrosshairSuggestionsCoordinates
     {
         public static string A1 = "(U=0,V=0,UL=64,VL=64)";
         public static string A2 = "(U=64,V=0,UL=64,VL=64)";
@@ -36,11 +36,11 @@ namespace Ut3CustomCrosshairs.CustomCrosshair
         public static string C8 = "(U=450,V=128,UL=64,VL=64)";
         public static string D1 = "(U=0,V=192,UL=64,VL=64)";
         public static string D2 = "((U=96,V=192,UL=64,VL=64";     
-        public static string D4 = "(U=192,V=192,UL=64,VL=64)";
-        public static string D5 = "(U=256,V=192,UL=64,VL=64)";
-        public static string D6 = "(U=322,V=192,UL=64,VL=64)";
-        public static string D7 = "(U=386,V=192,UL=64,VL=64)";
-        public static string D8 = "(U=450,V=192,UL=64,VL=64)";
+        public static string D3 = "(U=192,V=192,UL=64,VL=64)";
+        public static string D4 = "(U=256,V=192,UL=64,VL=64)";
+        public static string D5 = "(U=322,V=192,UL=64,VL=64)";
+        public static string D6 = "(U=386,V=192,UL=64,VL=64)";
+        public static string D7 = "(U=450,V=192,UL=64,VL=64)";
         public static string E1 = "(U=0,V=254,UL=38,VL=28)";
         public static string E2 = "(U=62,V=256,UL=20,VL=20)";
         public static string E3 = "(U=83,V=255,UL=6,VL=6)";
